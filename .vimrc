@@ -1,4 +1,4 @@
-" Plugins {{{
+" Plgins {{{
 
 set nocompatible
 filetype off
