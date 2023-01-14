@@ -1,4 +1,4 @@
-" Plgins {{{
+" Plurguijngins {{{
 
 set nocompatible
 filetype off
@@ -59,7 +59,6 @@ set tabstop=4
 set shiftwidth=4
 set smartindent
 set expandtab
-set laststatus=2
 
 " color tweaking
 hi LineNr ctermfg=gray
@@ -71,11 +70,6 @@ hi Visual ctermfg=black
 let g:netrw_browse_split=2
 let g:netrw_liststyle=3
 let g:netrw_banner=0
-
-" statusline
-set statusline=%f\ %h%w%m%r%=%-14.(%l,%c%V%)\ %4(%p%%%)
-au WinEnter * let &l:statusline=&g:statusline
-au WinLeave * let &l:statusline="%f\ %h%w%m%r"
 
 " }}}
 
