@@ -1,4 +1,4 @@
-" Plurguijngins {{{
+" Plugins {{{
 
 set nocompatible
 filetype off
