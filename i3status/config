@@ -1,0 +1,41 @@
+general {
+	color_bad = "#fc453a"
+	color_degraded = "#ffffff"
+	color_good = "#ffffff"
+}
+
+order += "volume master"
+order += "battery 0"
+order += "memory"
+order += "cpu_usage"
+order += "time"
+
+battery 0 {
+	format = "%status %percentage"
+	format_down = ""
+	format_percentage = "%.f%s"
+	status_bat = "B"
+	status_chr = "C"
+	status_full = "F"
+	status_unk = ""
+	last_full_capacity = true
+}
+
+volume master {
+	format = "V %volume"
+	format_muted = "M %volume"
+}
+
+memory {
+	format = "R %percentage_used"
+	threshold_critical = "10%"
+}
+
+cpu_usage {
+  format = "C %usage"
+  max_threshold = "110"
+}
+
+time {
+	format = "%a %-d %b %H:%M"
+}
