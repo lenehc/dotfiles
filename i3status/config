@@ -14,25 +14,25 @@ battery 0 {
 	format = "%status %percentage"
 	format_down = ""
 	format_percentage = "%.f%s"
-	status_bat = "B"
-	status_chr = "C"
-	status_full = "F"
+	status_bat = "BAT"
+	status_chr = "CHR"
+	status_full = "FUL"
 	status_unk = ""
 	last_full_capacity = true
 }
 
 volume master {
-	format = "V %volume"
-	format_muted = "M %volume"
+	format = "VOL %volume"
+	format_muted = "MUT %volume"
 }
 
 memory {
-	format = "R %percentage_used"
+	format = "MEM %percentage_used"
 	threshold_critical = "10%"
 }
 
 cpu_usage {
-  format = "C %usage"
+  format = "CPU %usage"
   max_threshold = "110"
 }
 
