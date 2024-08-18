@@ -1,6 +1,6 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(if (equal (system-name) "cheche")
+(if (equal (system-name) "CHECHE")
     (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 14 :weight 'regular)
           doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium))
   (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 12 :weight 'regular)
