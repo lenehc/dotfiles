@@ -2,12 +2,14 @@
 
 (if (equal (system-name) "CHECHE")
     (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 14 :weight 'regular)
-          doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium))
+          doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium)
+          org-mobile-checksum-binary "~/AppData/Local/checksum/sha1sum.exe")
   (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 12 :weight 'regular)
         doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium)))
 (setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 (setq confirm-kill-emacs nil)
+(setq org-mobile-files (directory-files-recursively "~/notes/org/mobileorg/sync" "\\.org$"))
 
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-footer)
 
