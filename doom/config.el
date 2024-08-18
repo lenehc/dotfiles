@@ -1,7 +1,12 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 12 :weight 'regular)
-      doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium))
+(cond
+ ((equal (system-name) "cheche")
+  (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 14 :weight 'regular)
+        doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium)))
+ (t
+  (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 12 :weight 'regular)
+        doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium))))
 (setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 (setq confirm-kill-emacs nil)
@@ -26,7 +31,7 @@
 (setq org-directory "~/notes/org")
 (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 (setq org-mobile-inbox-for-pull "~/notes/org/mobileorg/inbox.org")
-(setq org-roam-directory "~/notes/roam/")
+(setq org-roam-directory (file-truename "~/notes/roam/"))
 (setq org-roam-dailies-directory "journal/")
 
 (use-package! org-roam
