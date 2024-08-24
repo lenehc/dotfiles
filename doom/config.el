@@ -9,7 +9,6 @@
 (setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 (setq confirm-kill-emacs nil)
-(setq org-mobile-files (directory-files-recursively "~/notes/org/mobileorg/sync" "\\.org$"))
 
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-footer)
 
@@ -18,6 +17,38 @@
                          (lambda (zpath)
                            (browse-url
                              (format "zotero:%s" zpath))))
+
+(setq send-to-mobile-directory "~/Dropbox/org")
+
+(defun send-to-mobile ()
+  "Export current buffer as PDF using Pandoc and send to mobile directory."
+  (interactive)
+  (let ((filename
+        (buffer-file-name))
+        (basename
+        (file-name-nondirectory (buffer-file-name))))
+    (message "Processing current file...")
+    (if (and (string-match-p
+                (regexp-quote ".org") basename)
+               (not (string-match-p
+                     (regexp-quote "[") basename)))
+    (shell-command
+     (concat "pandoc -N -f org -t pdf -o " (concat (file-name-as-directory send-to-mobile-directory) (concat basename ".pdf")) " " filename))
+    (message "Invalid file, must be org file"))))
+
+(defun open-org-inbox-file ()
+  "Open org inbox file."
+  (interactive)
+  (find-file-other-window "~/notes/org/inbox.org"))
+
+(defun open-org-agenda-file ()
+  "Open org inbox file."
+  (interactive)
+  (find-file-other-window "~/notes/org/agenda.org"))
+
+(keymap-global-set "C-c m" 'send-to-mobile)
+(keymap-global-set "C-c i" 'open-org-inbox-file)
+(keymap-global-set "C-c a" 'open-org-agenda-file)
 
 
 (defun org-settings ()
@@ -30,7 +61,8 @@
 
 (setq org-directory "~/notes/org")
 (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-(setq org-mobile-inbox-for-pull "~/notes/org/mobileorg/inbox.org")
+(setq org-mobile-inbox-for-pull "~/notes/org/inbox.org")
+(setq org-mobile-files '("~/notes/org/mobileorg"))
 (setq org-roam-directory (file-truename "~/notes/roam/"))
 (setq org-roam-dailies-directory "journal/")
 
@@ -48,7 +80,7 @@
 
 (setq org-roam-capture-templates
       '(("m" "main" plain "%?"
-         :if-new (file+head "${slug}.org"
+         :if-new (file+head "main/${slug}.org"
                             "#+title: ${title}\n\n")
          :unnarrowed t
          :empty-lines 1)
