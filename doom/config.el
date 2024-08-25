@@ -42,13 +42,15 @@
   (find-file-other-window "~/notes/org/inbox.org"))
 
 (defun open-org-agenda-file ()
-  "Open org inbox file."
+  "Open org agenda file."
   (interactive)
   (find-file-other-window "~/notes/org/agenda.org"))
 
-(keymap-global-set "C-c m" 'send-to-mobile)
 (keymap-global-set "C-c i" 'open-org-inbox-file)
 (keymap-global-set "C-c a" 'open-org-agenda-file)
+(keymap-global-set "C-c m s" 'send-to-mobile)
+(keymap-global-set "C-c m p" 'org-mobile-push)
+(keymap-global-set "C-c m l" 'org-mobile-pull)
 
 
 (defun org-settings ()
@@ -69,11 +71,11 @@
 (use-package! org-roam
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n d" . org-id-get-create)
          ("C-c n c" . org-roam-capture)
-         ("C-c n j" . org-roam-dailies-capture-today))
+         ("C-c n j" . org-roam-dailies-goto-today)
+         ("C-c n g" . org-roam-dailies-goto-date))
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:40}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
