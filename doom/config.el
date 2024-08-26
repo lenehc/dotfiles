@@ -18,7 +18,7 @@
                            (browse-url
                              (format "zotero:%s" zpath))))
 
-(setq send-to-mobile-directory "~/Dropbox/org")
+(setq send-to-mobile-directory "~/Koofr/org")
 
 (defun send-to-mobile ()
   "Export current buffer as PDF using Pandoc and send to mobile directory."
@@ -68,7 +68,7 @@
 (add-hook 'org-mode-hook 'org-settings)
 
 (setq org-directory "~/notes/org")
-(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+(setq org-mobile-directory "~/Koofr/mobileorg")
 (setq org-mobile-inbox-for-pull "~/notes/org/inbox.org")
 (setq org-mobile-files '("~/notes/org/mobileorg"))
 (setq org-roam-directory (file-truename "~/notes/roam/"))
