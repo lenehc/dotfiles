@@ -2,8 +2,7 @@
 
 (if (equal (system-name) "CHECHE")
     (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 14 :weight 'regular)
-          doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium)
-          org-mobile-checksum-binary "~/AppData/Local/checksum/sha1sum.exe")
+          doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium))
   (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 12 :weight 'regular)
         doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium)))
 (setq doom-theme 'doom-gruvbox)
@@ -18,7 +17,7 @@
                            (browse-url
                              (format "zotero:%s" zpath))))
 
-(setq send-to-mobile-directory "~/Dropbox/org")
+(setq send-to-mobile-directory "~/Koofr/org")
 
 (defun send-to-mobile ()
   "Export current buffer as PDF using Pandoc and send to mobile directory."
@@ -68,7 +67,7 @@
 (add-hook 'org-mode-hook 'org-settings)
 
 (setq org-directory "~/notes/org")
-(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+(setq org-mobile-directory "~/Koofr/mobileorg")
 (setq org-mobile-inbox-for-pull "~/notes/org/inbox.org")
 (setq org-mobile-files '("~/notes/org/mobileorg"))
 (setq org-roam-directory (file-truename "~/notes/roam/"))
