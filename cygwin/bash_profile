@@ -1,0 +1,13 @@
+alias vim='nvim'
+alias v='nvim'
+alias e='emacsclientw -n -c -a ""'
+alias c='clear'
+alias t='tree -Ca'
+alias l='ls -CFa'
+alias ll='ls -alFNA --si'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+
+PS1='\u@\h \W $ '
+

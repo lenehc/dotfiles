@@ -14,7 +14,7 @@ alias sqlite='sqlite3'
 
 # editors
 alias vim='nvim'
-alias v='/usr/bin/nvim'
+alias v='nvim'
 alias e='emacsclient -n -c'
 
 # misc
