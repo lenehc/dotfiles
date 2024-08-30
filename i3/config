@@ -37,9 +37,6 @@ exec nm-applet
 # Start MEGA
 exec megasync
 
-# Fix window size
-floating_maximum_size 1366 x 768
-
 # Fix file picker too big
 for_window [class="Thunar"] resize set 640 480 move position 100 100
 for_window [window_role="(?i)GtkFileChooserDialog"] resize set 640 480 move position 100 100
