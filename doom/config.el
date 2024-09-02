@@ -22,10 +22,8 @@
 (defun send-to-mobile ()
   "Export current buffer as PDF using Pandoc and send to mobile directory."
   (interactive)
-  (let ((filename
-        (buffer-file-name))
-        (basename
-        (file-name-nondirectory (buffer-file-name))))
+  (let* ((filename (buffer-file-name))
+         (basename (file-name-nondirectory filename)))
     (message "Processing current file...")
     (if (and (string-match-p
                 (regexp-quote ".org") basename)
