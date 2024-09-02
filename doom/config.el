@@ -28,7 +28,7 @@
 ;;
 ;;; Custom functions
 
-(defun send-to-mobile ()
+(defun my/send-to-mobile ()
   "Export current buffer as PDF using Pandoc and send to mobile directory."
   (interactive)
   (let* ((filename (buffer-file-name))
@@ -39,39 +39,52 @@
                (not (string-match-p
                      (regexp-quote "[") basename)))
     (shell-command
-     (concat "pandoc -N -f org -t pdf -o " (concat (file-name-as-directory (expand-file-name send-to-mobile-directory)) (concat basename ".pdf")) " " filename))
+     (concat "pandoc -N -f org -t pdf -o " (concat (file-name-as-directory (expand-file-name my/send-to-mobile-directory)) (concat basename ".pdf")) " " filename))
     (message "Invalid file, must be org file"))))
 
-(defun open-org-inbox ()
+(defun my/open-org-inbox ()
   "Open inbox.org in another window."
   (interactive)
   (find-file-other-window "~/notes/org/inbox.org"))
 
-(defun open-org-personal ()
+(defun my/open-org-personal ()
   "Open personal.org in another window."
   (interactive)
   (find-file-other-window "~/notes/org/personal.org"))
 
-(defun open-org-school ()
+(defun my/open-org-school ()
   "Open school.org in another window."
   (interactive)
   (find-file-other-window "~/notes/org/school.org"))
+
+(defun my/org-roam-exclude-dailies-p (node)
+  "Return non-nil if the NODE is not in ‘org-roam-dailies-directory’."
+  (let ((file (org-roam-node-file node)))
+    (not (string-prefix-p (expand-file-name org-roam-dailies-directory org-roam-directory) file))))
+
+(defun my/org-roam-node-find-exclude-dailies ()
+  "Find an Org-roam node, excluding nodes in the ‘org-roam-dailies-directory’."
+  (interactive)
+  (org-roam-node-find
+   nil
+   nil
+   #'my/org-roam-exclude-dailies-p))
 
 
 ;;
 ;;; Keybinds
 
 (map! :leader
-      "i" #'open-org-inbox
-      "a" #'open-org-personal
-      "s" #'open-org-school
+      "i" #'my/open-org-inbox
+      "a" #'my/open-org-personal
+      "s" #'my/open-org-school
       (:prefix "m"
-        "s" #'send-to-mobile
+        "s" #'my/send-to-mobile
         "p" #'org-mobile-push
         "l" #'org-mobile-pull)
       (:prefix "n"
         "l" #'org-roam-buffer-toggle
-        "f" #'org-roam-node-find
+        "f" #'my/org-roam-node-find-exclude-dailies
         "i" #'org-roam-node-insert
         "d" #'org-id-get-create
         "c" #'org-roam-capture
@@ -97,7 +110,7 @@
       org-mobile-files '("~/notes/org/mobileorg")
       org-roam-directory (file-truename "~/notes/roam/")
       org-roam-dailies-directory "journal/"
-      send-to-mobile-directory "~/Koofr/org")
+      my/send-to-mobile-directory "~/Koofr/org")
 
 (after! org-roam
   (setq org-roam-node-display-template
