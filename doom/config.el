@@ -35,19 +35,22 @@
      (concat "pandoc -N -f org -t pdf -o " (concat (file-name-as-directory (expand-file-name send-to-mobile-directory)) (concat basename ".pdf")) " " filename))
     (message "Invalid file, must be org file"))))
 
-(defun open-org-inbox-file ()
-  "Open org inbox file."
+(defun open-org-inbox ()
   (interactive)
   (find-file-other-window "~/notes/org/inbox.org"))
 
-(defun open-org-agenda-file ()
-  "Open org agenda file."
+(defun open-org-personal ()
   (interactive)
-  (find-file-other-window "~/notes/org/agenda.org"))
+  (find-file-other-window "~/notes/org/personal.org"))
+
+(defun open-org-school ()
+  (interactive)
+  (find-file-other-window "~/notes/org/school.org"))
 
 (map! :prefix "C-c"
-      "i"   'open-org-inbox-file
-      "a"   'open-org-agenda-file
+      "i"   'open-org-inbox
+      "a"   'open-org-personal
+      "s"   'open-org-school
       "m s" 'send-to-mobile
       "m p" 'org-mobile-push
       "m l" 'org-mobile-pull)
