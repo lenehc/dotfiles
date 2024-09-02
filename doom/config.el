@@ -1,23 +1,32 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+
+;;
+;;; UI
+
+;; different font sizes for different machines
 (if (equal (system-name) "CHECHE")
     (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 14 :weight 'regular)
           doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium))
   (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 12 :weight 'regular)
         doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium)))
-(setq doom-theme 'doom-gruvbox)
-(setq display-line-numbers-type t)
-(setq confirm-kill-emacs nil)
+
+(setq doom-theme 'doom-gruvbox
+      display-line-numbers-type t
+      confirm-kill-emacs nil)
 
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-footer)
 
+;; open zotero links in zotero
 (require 'ol)
 (org-link-set-parameters "zotero" :follow
                          (lambda (zpath)
                            (browse-url
                              (format "zotero:%s" zpath))))
 
-(setq send-to-mobile-directory "~/Koofr/org")
+
+;;
+;;; Custom functions
 
 (defun send-to-mobile ()
   "Export current buffer as PDF using Pandoc and send to mobile directory."
@@ -34,69 +43,77 @@
     (message "Invalid file, must be org file"))))
 
 (defun open-org-inbox ()
+  "Open inbox.org in another window."
   (interactive)
   (find-file-other-window "~/notes/org/inbox.org"))
 
 (defun open-org-personal ()
+  "Open personal.org in another window."
   (interactive)
   (find-file-other-window "~/notes/org/personal.org"))
 
 (defun open-org-school ()
+  "Open school.org in another window."
   (interactive)
   (find-file-other-window "~/notes/org/school.org"))
 
-(map! :prefix "C-c"
-      "i"   'open-org-inbox
-      "a"   'open-org-personal
-      "s"   'open-org-school
-      "m s" 'send-to-mobile
-      "m p" 'org-mobile-push
-      "m l" 'org-mobile-pull)
+
+;;
+;;; Keybinds
+
+(map! :leader
+      "i" #'open-org-inbox
+      "a" #'open-org-personal
+      "s" #'open-org-school
+      (:prefix "m"
+        "s" #'send-to-mobile
+        "p" #'org-mobile-push
+        "l" #'org-mobile-pull)
+      (:prefix "n"
+        "l" #'org-roam-buffer-toggle
+        "f" #'org-roam-node-find
+        "i" #'org-roam-node-insert
+        "d" #'org-id-get-create
+        "c" #'org-roam-capture
+        "j" #'org-roam-dailies-goto-today
+        "g" #'org-roam-dailies-goto-date))
 
 
-(defun org-settings ()
+;;
+;;; Org
+
+(defun my/org-settings ()
+  "Custom settings for org files."
   (visual-line-fill-column-mode)
   (setq visual-fill-column-width 90)
   (setq visual-fill-column-center-text t)
   (setq org-startup-indented t)
   (display-line-numbers-mode -1))
-(add-hook 'org-mode-hook 'org-settings)
+(add-hook 'org-mode-hook #'my/org-settings)
 
-(setq org-directory "~/notes/org")
-(setq org-mobile-directory "~/Koofr/mobileorg")
-(setq org-mobile-inbox-for-pull "~/notes/org/inbox.org")
-(setq org-mobile-files '("~/notes/org/mobileorg"))
-(setq org-roam-directory (file-truename "~/notes/roam/"))
-(setq org-roam-dailies-directory "journal/")
+(setq org-directory "~/notes/org"
+      org-mobile-directory "~/Koofr/mobileorg"
+      org-mobile-inbox-for-pull "~/notes/org/inbox.org"
+      org-mobile-files '("~/notes/org/mobileorg")
+      org-roam-directory (file-truename "~/notes/roam/")
+      org-roam-dailies-directory "journal/"
+      send-to-mobile-directory "~/Koofr/org")
 
-(use-package! org-roam
-  :bind (("C-c r l" . org-roam-buffer-toggle)
-         ("C-c r f" . org-roam-node-find)
-         ("C-c r i" . org-roam-node-insert)
-         ("C-c r d" . org-id-get-create)
-         ("C-c r c" . org-roam-capture)
-         ("C-c r j" . org-roam-dailies-goto-today)
-         ("C-c r g" . org-roam-dailies-goto-date))
-  :config
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:40}" 'face 'org-tag)))
+(after! org-roam
+  (setq org-roam-node-display-template
+        (concat "${title:*} " (propertize "${tags:40}" 'face 'org-tag))
+        org-roam-capture-templates
+        '(("m" "main" plain "%?"
+           :if-new (file+head "main/${slug}.org" "#+title: ${title}\n\n")
+           :unnarrowed t
+           :empty-lines 1)
+          ("d" "default" plain "%?"
+           :if-new (file+head "%<%Y-%m-%d %H.%M.%S>-${slug}.org" "#+title: ${title}\n\n")
+           :unnarrowed t
+           :empty-lines 1))
+        org-roam-dailies-capture-templates
+        '(("d" "default" entry "* %?"
+           :target (file+head "%<%Y>/%<%m>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n\n")
+           :unnarrowed t
+           :empty-lines 1)))
   (org-roam-db-autosync-mode))
-
-(setq org-roam-capture-templates
-      '(("m" "main" plain "%?"
-         :if-new (file+head "main/${slug}.org"
-                            "#+title: ${title}\n\n")
-         :unnarrowed t
-         :empty-lines 1)
-        ("d" "default" plain "%?"
-         :if-new (file+head "%<%Y-%m-%d %H.%M.%S>-${slug}.org"
-                            "#+title: ${title}\n\n")
-         :unnarrowed t
-         :empty-lines 1)))
-
-(setq org-roam-dailies-capture-templates
-      '(("d" "default" entry
-         "* %?"
-         :target (file+head "%<%Y>/%<%m>/%<%Y-%m-%d>.org"
-                            "#+title: %<%Y-%m-%d>\n\n")
-         :unnarrowed t
-         :empty-lines 1)))
