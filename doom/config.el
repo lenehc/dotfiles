@@ -54,11 +54,6 @@
       "m s" 'send-to-mobile
       "m p" 'org-mobile-push
       "m l" 'org-mobile-pull)
-;;(keymap-global-set "C-c i" 'open-org-inbox-file)
-;;(keymap-global-set "C-c a" 'open-org-agenda-file)
-;;(keymap-global-set "C-c m s" 'send-to-mobile)
-;;(keymap-global-set "C-c m p" 'org-mobile-push)
-;;(keymap-global-set "C-c m l" 'org-mobile-pull)
 
 
 (defun org-settings ()
