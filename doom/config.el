@@ -78,6 +78,7 @@
       "i" #'my/open-org-inbox
       "a" #'my/open-org-personal
       "s" #'my/open-org-school
+      "c a" #'org-archive-subtree-default
       (:prefix "m"
         "s" #'my/send-to-mobile
         "p" #'org-mobile-push
