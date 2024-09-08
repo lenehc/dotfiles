@@ -19,24 +19,6 @@ gaps inner 8px
 default_border normal 1
 default_floating_border normal
 
-# Start redshift
-exec --no-startup-id redshift
-
-# Start sxhkd (keybindings)
-exec --no-startup-id sxhkd
-
-# Start ActivityWatch
-exec aw-qt
-
-# Start bluetooth
-exec blueman-applet
-
-# Start nm-applet
-exec nm-applet
-
-# Start MEGA
-exec megasync
-
 # Fix file picker too big
 for_window [class="Thunar"] resize set 640 480 move position 100 100
 for_window [window_role="(?i)GtkFileChooserDialog"] resize set 640 480 move position 100 100
