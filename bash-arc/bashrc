@@ -23,6 +23,7 @@ alias doze='systemctl suspend'
 alias font='cd /usr/local/share/fonts'
 
 # apps
+alias filen='app /home/chenel/Applications/filen_x86_64.AppImage'
 alias zotero='app zotero'
 alias vlc='app /usr/bin/vlc'
 alias anki='app anki'
@@ -44,15 +45,6 @@ app() {
   eval "$1" "'${@:2}'" &>/dev/null &
 }
 
-hdph() {
-	device="B0:BE:83:DE:04:DC"
-	if bluetoothctl info ${device} | grep 'Connected: yes' -q; then
-		bluetoothctl disconnect ${device}
-	else
-		bluetoothctl connect ${device}
-	fi
-}
-
 doc() {
 	zathura "$1" &>/dev/null &
 }
@@ -65,8 +57,7 @@ export VISUAL=vim
 export HISTTIMEFORMAT="%m/%d/%y %T "
 export HISTSIZE=100000
 
-# Created by `pipx` on 2023-08-06 14:52:18
-export PATH="$PATH:/home/chenel/.local/bin:/usr/local/texlive/2023/bin/x86_64-linux:/home/chenel/.config/emacs/bin"
+export PATH="$PATH:/home/chenel/.local/bin:/usr/local/texlive/2023/bin/x86_64-linux:/home/chenel/.config/emacs/bin:/home/chenel/Applications"
 
 export XDG_DATA_HOME=~/.local/share
 export XDG_CONFIG_HOME=~/.config
