@@ -13,33 +13,19 @@ alias rm='trash-put'
 alias sqlite='sqlite3'
 
 # editors
-alias vim='nvim'
 alias v='nvim'
 alias e='emacsclient -n -c'
 
 # misc
-alias torrent='rtorrent'
 alias doze='systemctl suspend'
-alias font='cd /usr/local/share/fonts'
 
 # apps
 alias filen='app /home/chenel/Applications/filen_x86_64.AppImage'
 alias zotero='app zotero'
 alias vlc='app /usr/bin/vlc'
 alias anki='app anki'
-alias obsidian='app obsidian'
 alias firefox='app firefox'
 alias aw='app aw-qt'
-alias foliate='app foliate'
-alias okular='app okular'
-alias proton-pass='app proton-pass'
-
-alias ical='app snap run icloud-for-linux.calendar'
-alias inotes='app snap run icloud-for-linux.notes'
-alias icloud='app snap run icloud-for-linux.drive'
-alias ifind='app snap run icloud-for-linux.find-my-iphone'
-alias imail='app snap run icloud-for-linux.mail'
-alias iphotos='app snap run icloud-for-linux.photos'
 
 app() {
   eval "$1" "'${@:2}'" &>/dev/null &
