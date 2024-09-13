@@ -3,18 +3,13 @@ alias t='tree -a'
 alias open='wslview'
 alias sqlite='sqlite3'
 
-alias vim='nvim'
-alias v='/usr/bin/vim'
-alias e='emacs'
+alias v='neovide.exe --wsl'
 
 alias rm='trash'
 alias rm-d='/usr/bin/rm'
 alias python='python3'
 
-alias leechsync='python ~/sandbox/leechblockSync/leechblockSync.py'
-
-
-emacs() {
+e() {
 	#modified_path= # | sed 's/\/\/wsl.localhost\/Ubuntu/Z:/'
 	eval emacsclientw.exe -c -n -a \"\" \"$(wslpath -m "$1")\"
 }
