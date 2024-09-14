@@ -13,7 +13,7 @@ alias rm='trash-put'
 alias sqlite='sqlite3'
 
 # editors
-alias v='neovide'
+alias v='neovide --fork'
 alias vim='nvim'
 alias e='emacsclient -n -c'
 
