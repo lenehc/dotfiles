@@ -4,6 +4,7 @@ alias open='wslview'
 alias sqlite='sqlite3'
 
 alias v='neovide.exe --wsl'
+alias vim='nvim'
 
 alias rm='trash'
 alias rm-d='/usr/bin/rm'
