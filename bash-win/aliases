@@ -3,7 +3,7 @@ alias t='tree -a'
 alias open='wslview'
 alias sqlite='sqlite3'
 
-alias v='neovide.exe --wsl'
+alias v='neovide.exe --wsl --fork'
 alias vim='nvim'
 
 alias rm='trash'
