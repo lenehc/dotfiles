@@ -41,6 +41,7 @@ bindsym $mod+Shift+a exec --no-startup-id anki
 bindsym $mod+Shift+v exec --no-startup-id vlc
 bindsym $mod+Shift+t exec --no-startup-id thunar
 bindsym $mod+Shift+s exec --no-startup-id strawberry
+bindsym $mod+Shift+n exec --no-startup-id neovide
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).

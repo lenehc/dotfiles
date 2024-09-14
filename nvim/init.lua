@@ -35,6 +35,3 @@ require "nvchad.autocmds"
 vim.schedule(function()
   require "mappings"
 end)
-
-
-vim.opt.guifont = { "MesloLGS Nerd Font", ":h9" }
