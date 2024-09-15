@@ -3,9 +3,9 @@
 #
 
 PS1='[\u@\h \W]$ '
- 
-alias ls='ls -F --color=auto'
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
+
+
+alias l='ls -CFa'
+alias ll='ls -alFNA --si'
+alias ls='ls --color=auto'
 alias c='clear'
