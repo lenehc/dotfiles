@@ -6,8 +6,10 @@
 
 ;; different font sizes for different machines
 (if (equal (system-name) "CHECHE")
-    (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 14 :weight 'regular)
-          doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium))
+    (progn (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 14 :weight 'regular)
+                 doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium))
+           (after! org
+             (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0))))
   (setq doom-font                 (font-spec :family "MesloLGS Nerd Font" :size 12 :weight 'regular)
         doom-variable-pitch-font  (font-spec :family "Georgia" :size 14 :weight 'medium)))
 
@@ -114,7 +116,6 @@
       my/send-to-mobile-directory "~/Koofr/org")
 
 (after! org
-  (plist-put org-format-latex-options :scale 1.0)
   (setq org-startup-indented t
         org-startup-with-latex-preview t))
 
