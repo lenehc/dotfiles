@@ -113,7 +113,8 @@
       org-mobile-files '("~/notes/org/mobileorg")
       org-roam-directory (file-truename "~/notes/roam/")
       org-roam-dailies-directory "journal/"
-      my/send-to-mobile-directory "~/Koofr/org")
+      my/send-to-mobile-directory "~/Koofr/org"
+      global-auto-revert-mode t)
 
 (after! org
   (setq org-startup-indented t
