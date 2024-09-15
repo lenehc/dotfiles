@@ -99,10 +99,10 @@
 (defun my/org-settings ()
   "Custom settings for org files."
   (visual-line-fill-column-mode)
+  (org-fragtog-mode)
+  (display-line-numbers-mode -1)
   (setq visual-fill-column-width 90)
-  (setq visual-fill-column-center-text t)
-  (setq org-startup-indented t)
-  (display-line-numbers-mode -1))
+  (setq visual-fill-column-center-text t))
 (add-hook 'org-mode-hook #'my/org-settings)
 
 (setq org-directory "~/notes/org"
@@ -112,6 +112,11 @@
       org-roam-directory (file-truename "~/notes/roam/")
       org-roam-dailies-directory "journal/"
       my/send-to-mobile-directory "~/Koofr/org")
+
+(after! org
+  (plist-put org-format-latex-options :scale 1.0)
+  (setq org-startup-indented t
+        org-startup-with-latex-preview t))
 
 (after! org-roam
   (setq org-roam-node-display-template
