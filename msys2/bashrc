@@ -1,0 +1,11 @@
+#
+# .bashrc
+#
+
+PS1='[\u@\h \W]$ '
+
+
+alias l='ls -CFa'
+alias ll='ls -alFNA --si'
+alias ls='ls --color=auto'
+alias c='clear'
