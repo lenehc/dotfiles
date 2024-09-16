@@ -10,6 +10,8 @@ alias rm='trash'
 alias rm-d='/usr/bin/rm'
 alias python='python3'
 
+alias download-vid='yt-dlp -f "bv[vcodec~='"'"'^avc'"'"'][height<=1080][ext=mp4]+ba[ext=m4a]" --add-metadata --embed-metadata --embed-thumbnail'
+
 e() {
 	#modified_path= # | sed 's/\/\/wsl.localhost\/Ubuntu/Z:/'
 	eval emacsclientw.exe -c -n -a \"\" \"$(wslpath -m "$1")\"
