@@ -133,13 +133,13 @@
   (display-line-numbers-mode -1)
   (setq visual-fill-column-width 90)
   (setq visual-fill-column-center-text t)
-  (lambda()
-    (org-adjust-visual-padding 0 (point-max) 0)
-    (add-hook 'after-change-functions #'org-adjust-visual-padding nil t)
-    (add-hook 'yas-before-expand-snippet-hook (lambda() (setq yas--snippet-being-expanded t)) nil t)
-    (add-hook 'yas-after-exit-snippet-hook (lambda()
-                                             (setq yas--snippet-being-expanded nil)
-                                             (org-adjust-visual-padding yas-snippet-beg yas-snippet-end 0)) nil t))))
+  ;; latex fragment padding
+  (org-adjust-latex-fragment-padding 0 (point-max) 0)
+  (add-hook 'after-change-functions #'org-adjust-visual-padding nil t)
+  (add-hook 'yas-before-expand-snippet-hook (lambda() (setq yas--snippet-being-expanded t)) nil t)
+  (add-hook 'yas-after-exit-snippet-hook (lambda()
+                                           (setq yas--snippet-being-expanded nil)
+                                           (org-adjust-latex-fragment-padding yas-snippet-beg yas-snippet-end 0)) nil t))
 (add-hook 'org-mode-hook #'my/org-settings)
 
 (setq org-directory "~/notes/org"
