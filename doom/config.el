@@ -72,11 +72,8 @@
    nil
    #'my/org-roam-exclude-dailies-p))
 
-;;
-
 (defun line-contains-latex-delimiter ()
   "Return t if the symbol '$' is anywhere in the current line."
-  (interactive)
   (save-excursion
     (beginning-of-line)
     (re-search-forward "\\$" (line-end-position) t)))
