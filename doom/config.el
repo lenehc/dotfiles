@@ -72,6 +72,34 @@
    nil
    #'my/org-roam-exclude-dailies-p))
 
+;;
+
+(defun line-contains-latex-delimiter ()
+  "Return t if the symbol '$' is anywhere in the current line."
+  (interactive)
+  (save-excursion
+    (beginning-of-line)
+    (re-search-forward "\\$" (line-end-position) t)))
+
+;; https://emacs.stackexchange.com/a/78099
+(defvar yas--snippet-being-expanded nil)
+(defun org-adjust-latex-fragment-padding (beginning end _)
+  "Add padding for lines between BEGINNING & END that have LaTeX delimiters."
+  (unless (eq yas--snippet-being-expanded t)
+    (save-excursion
+      (goto-char beginning)
+      (forward-line -1)
+      (while (and (<= (point) end) (not (eq (point-max) (point))))
+        (progn
+          (if (and (line-contains-latex-delimiter) (not (eq (line-number-at-pos) 1)))
+              (progn
+                (forward-line -1)
+                (put-text-property (line-beginning-position) (1+ (line-end-position)) 'line-spacing 10)
+                (forward-line 1)
+                (put-text-property (line-beginning-position) (1+ (line-end-position)) 'line-spacing 10))
+            (remove-text-properties (line-beginning-position) (1+ (line-end-position)) '(line-spacing 10)))
+          (forward-line 1))))))
+
 
 ;;
 ;;; Keybinds
@@ -104,7 +132,14 @@
   (org-fragtog-mode)
   (display-line-numbers-mode -1)
   (setq visual-fill-column-width 90)
-  (setq visual-fill-column-center-text t))
+  (setq visual-fill-column-center-text t)
+  (lambda()
+    (org-adjust-visual-padding 0 (point-max) 0)
+    (add-hook 'after-change-functions #'org-adjust-visual-padding nil t)
+    (add-hook 'yas-before-expand-snippet-hook (lambda() (setq yas--snippet-being-expanded t)) nil t)
+    (add-hook 'yas-after-exit-snippet-hook (lambda()
+                                             (setq yas--snippet-being-expanded nil)
+                                             (org-adjust-visual-padding yas-snippet-beg yas-snippet-end 0)) nil t))))
 (add-hook 'org-mode-hook #'my/org-settings)
 
 (setq org-directory "~/notes/org"
