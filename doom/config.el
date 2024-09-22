@@ -72,12 +72,22 @@
    nil
    #'my/org-roam-exclude-dailies-p))
 
-(defun my/place-formula-image-with-padding (orig-fun &rest args)
+(defun my/org-place-formula-image-with-padding (orig-fun &rest args)
   (apply orig-fun args)
-  (with-silent-modifications
-    (put-text-property (nth 2 args) (1+ (nth 3 args)) 'line-spacing 10)))
-(advice-add 'org-place-formula-image :around #'my/place-formula-image-with-padding)
+  (let ((beg (nth 2 args))
+        (end (nth 3 args)))
+    (with-silent-modifications
+      (put-text-property beg (1+ end) 'line-spacing 10))))
+(advice-add 'org-place-formula-image :around #'my/org-place-formula-image-with-padding)
 
+(defun my/org-clear-latex-preview-with-padding (orig-fun &rest args)
+  (apply orig-fun args)
+  (let ((beg (nth 0 args))
+        (end (nth 1 args)))
+    (if (and beg end)
+        (with-silent-modifications
+          (remove-text-properties beg (1+ end) '(line-spacing 10))))))
+(advice-add 'org-clear-latex-preview :around #'my/org-clear-latex-preview-with-padding)
 
 ;;
 ;;; Keybinds
