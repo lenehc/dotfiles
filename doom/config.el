@@ -86,7 +86,7 @@ as a string.  It defaults to \"png\"."
                          (delete-overlay o))))
     (overlay-put ov
                  'display
-                 (list 'image :type imagetype :file image :ascent 'center :margin 5))))
+                 (list 'image :type imagetype :file image :ascent 'center :margin '(0 . 5)))))
 (advice-add 'org--make-preview-overlay :around #'my/org--make-preview-overlay)
 
 
