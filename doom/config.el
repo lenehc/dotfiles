@@ -72,22 +72,23 @@
    nil
    #'my/org-roam-exclude-dailies-p))
 
-(defun my/org-place-formula-image-with-padding (orig-fun &rest args)
-  (apply orig-fun args)
-  (let ((beg (nth 2 args))
-        (end (nth 3 args)))
-    (with-silent-modifications
-      (put-text-property beg (1+ end) 'line-spacing 10))))
-(advice-add 'org-place-formula-image :around #'my/org-place-formula-image-with-padding)
+(defun my/org--make-preview-overlay (_ beg end image &optional imagetype)
+  "Build an overlay between BEG and END using IMAGE file.
+Argument IMAGETYPE is the extension of the displayed image,
+as a string.  It defaults to \"png\"."
+  (let ((ov (make-overlay beg end))
+        (imagetype (or (intern imagetype) 'png)))
+    (overlay-put ov 'org-overlay-type 'org-latex-overlay)
+    (overlay-put ov 'evaporate t)
+    (overlay-put ov
+                 'modification-hooks
+                 (list (lambda (o _flag _beg _end &optional _l)
+                         (delete-overlay o))))
+    (overlay-put ov
+                 'display
+                 (list 'image :type imagetype :file image :ascent 'center :margin 5))))
+(advice-add 'org--make-preview-overlay :around #'my/org--make-preview-overlay)
 
-(defun my/org-clear-latex-preview-with-padding (orig-fun &rest args)
-  (apply orig-fun args)
-  (let ((beg (nth 0 args))
-        (end (nth 1 args)))
-    (if (and beg end)
-        (with-silent-modifications
-          (remove-text-properties beg (1+ end) '(line-spacing 10))))))
-(advice-add 'org-clear-latex-preview :around #'my/org-clear-latex-preview-with-padding)
 
 ;;
 ;;; Keybinds
