@@ -42,7 +42,7 @@
                      (regexp-quote "[") basename)))
     (shell-command
      (concat "pandoc -N -f org -t pdf -o " (concat (file-name-as-directory (expand-file-name my/send-to-mobile-directory)) (concat basename ".pdf")) " " filename))
-    (message "Invalid file, must be org file"))))
+    (message "Invalid file, must be org file."))))
 
 (defun my/open-org-inbox ()
   "Open inbox.org in another window."
@@ -111,13 +111,6 @@
   (display-line-numbers-mode -1)
   (setq visual-fill-column-width 90)
   (setq visual-fill-column-center-text t))
-  ;; latex fragment padding
-  ;;(org-adjust-latex-fragment-padding 0 (point-max) 0)
-  ;;(add-hook 'after-change-functions #'org-adjust-visual-padding nil t))
-  ;;(add-hook 'yas-before-expand-snippet-hook (lambda() (setq yas--snippet-being-expanded t)) nil t)
-  ;;(add-hook 'yas-after-exit-snippet-hook (lambda()
-  ;;                                         (setq yas--snippet-being-expanded nil)
-  ;;                                         (org-adjust-latex-fragment-padding yas-snippet-beg yas-snippet-end 0)) nil t))
 (add-hook 'org-mode-hook #'my/org-settings)
 
 (setq org-directory "~/notes/org"
