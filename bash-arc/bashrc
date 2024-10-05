@@ -21,7 +21,7 @@ alias e='emacsclient -n -c'
 alias doze='systemctl suspend'
 
 # apps
-alias filen='app /home/chenel/Applications/filen_x86_64.AppImage'
+alias localsend='app localsend'
 alias zotero='app zotero'
 alias vlc='app /usr/bin/vlc'
 alias anki='app anki'
