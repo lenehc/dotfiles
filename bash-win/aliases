@@ -17,9 +17,18 @@ e() {
 	eval emacsclientw.exe -c -n -a \"\" \"$(wslpath -m "$1")\"
 }
 
-download-album() {
+download-bandcamp() {
   local albumUrl="$1"
   local outDir="${2:-$(pwd)}"
+
+  yt-dlp --embed-thumbnail --add-metadata --embed-metadata -f "[ext=mp3]" -o "$outDir/%(uploader)s/%(playlist_title)s/%(playlist_autonumber)02d - %(title)s.%(ext)s" "$albumUrl"
+
+ # --parse-metadata '%(playlist_index)s/%(playlist_count)s:%(track_number)s' --parse-metadata '%(playlist_title)s:%(album)s' 
+}
+
+download-album() {
+  local albumUrl="$1"
+  local outDir="${1:-$(pwd)}"
 
   yt-dlp --embed-thumbnail --add-metadata --embed-metadata -f hls_mp3_128 --parse-metadata '%(playlist_index)s/%(playlist_count)s:%(track_number)s' --parse-metadata '%(playlist_title)s:%(album)s' -o "$outDir/%(uploader)s/%(playlist_title)s/%(playlist_autonumber)02d - %(title)s.%(ext)s" "$albumUrl"
 }
