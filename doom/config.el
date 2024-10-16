@@ -149,6 +149,10 @@ as a string.  It defaults to \"png\"."
            :if-new (file+head "webdev/${slug}.org" "#+title: ${title}\n\n")
            :unnarrowed t
            :empty-lines 1)
+          ("s" "design" plain "%?"
+           :if-new (file+head "design/${slug}.org" "#+title: ${title}\n\n")
+           :unnarrowed t
+           :empty-lines 1)
           ("d" "default" plain "%?"
            :if-new (file+head "%<%Y-%m-%d %H.%M.%S>-${slug}.org" "#+title: ${title}\n\n")
            :unnarrowed t
