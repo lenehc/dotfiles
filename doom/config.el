@@ -27,6 +27,7 @@
                              (format "zotero:%s" zpath))))
 
 
+
 ;;
 ;;; Custom functions
 
@@ -47,17 +48,17 @@
 (defun my/open-org-inbox ()
   "Open inbox.org in another window."
   (interactive)
-  (find-file-other-window "~/notes/org/inbox.org"))
+  (find-file-other-window "~/org/inbox.org"))
 
 (defun my/open-org-personal ()
   "Open personal.org in another window."
   (interactive)
-  (find-file-other-window "~/notes/org/personal.org"))
+  (find-file-other-window "~/org/personal.org"))
 
 (defun my/open-org-school ()
   "Open school.org in another window."
   (interactive)
-  (find-file-other-window "~/notes/org/school.org"))
+  (find-file-other-window "~/org/school.org"))
 
 (defun my/org-roam-exclude-dailies-p (node)
   "Return non-nil if the NODE is not in ‘org-roam-dailies-directory’."
@@ -124,13 +125,14 @@ as a string.  It defaults to \"png\"."
   (setq visual-fill-column-center-text t))
 (add-hook 'org-mode-hook #'my/org-settings)
 
-(setq org-directory "~/notes/org"
+(require 'org-roam)
+(setq org-directory "~/org"
       org-mobile-directory "~/Koofr/mobileorg"
-      org-mobile-inbox-for-pull "~/notes/org/inbox.org"
-      org-mobile-files '("~/notes/org/mobileorg")
+      org-mobile-inbox-for-pull "~/org/inbox.org"
+      org-mobile-files '("~/org/mobileorg")
       org-roam-directory (file-truename "~/notes/roam/")
       org-roam-dailies-directory "journal/"
-      my/send-to-mobile-directory "~/Koofr/org"
+      my/send-to-mobile-directory "~/org"
       global-auto-revert-mode t)
 
 (after! org
@@ -142,11 +144,11 @@ as a string.  It defaults to \"png\"."
         (concat "${title:*} " (propertize "${tags:40}" 'face 'org-tag))
         org-roam-capture-templates
         '(("m" "main" plain "%?"
-           :if-new (file+head "main/${slug}.org" "#+title: ${title}\n\n")
+           :if-new (file+head "main/${slug}.md" "---\ntitle: ${title}\n---\n")
            :unnarrowed t
            :empty-lines 1)
           ("w" "webdev" plain "%?"
-           :if-new (file+head "webdev/${slug}.org" "#+title: ${title}\n\n")
+           :if-new (file+head "webdev/${slug}.md" "---\ntitle: ${title}\n---\n")
            :unnarrowed t
            :empty-lines 1)
           ("s" "design" plain "%?"
@@ -154,12 +156,12 @@ as a string.  It defaults to \"png\"."
            :unnarrowed t
            :empty-lines 1)
           ("d" "default" plain "%?"
-           :if-new (file+head "%<%Y-%m-%d %H.%M.%S>-${slug}.org" "#+title: ${title}\n\n")
+           :if-new (file+head "%<%Y-%m-%d %H.%M.%S>-${slug}.md" "---\ntitle: ${title}\n---\n")
            :unnarrowed t
            :empty-lines 1))
         org-roam-dailies-capture-templates
         '(("d" "default" entry "* %?"
-           :target (file+head "%<%Y>/%<%m>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n\n")
+           :target (file+head "%<%Y>/%<%m>/%<%Y-%m-%d>.md" "---\ntitle: %<%Y-%m-%d>\n---\n")
            :unnarrowed t
            :empty-lines 1)))
-  (org-roam-db-autosync-mode))
+  (org-roam-db-autosync-mode 1))

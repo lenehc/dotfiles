@@ -21,6 +21,7 @@ alias e='emacsclient -n -c'
 alias doze='systemctl suspend'
 
 # apps
+alias obsiaidn='app obsidian'
 alias localsend='app localsend'
 alias zotero='app zotero'
 alias vlc='app /usr/bin/vlc'
